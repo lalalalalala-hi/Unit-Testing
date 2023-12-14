@@ -1,8 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  flush,
+  flushMicrotasks,
+  tick,
+} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { delay, of } from 'rxjs';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>; // create for debug element
@@ -71,8 +79,41 @@ describe('AppComponent', () => {
       fixture.detectChanges();
       btn = el.queryAll(By.css('.unit-test-button'));
       expect(btn[0].nativeElement.textContent).toBe('Unit Testing True');
-      expect(btn[0].nativeElement.disabled).toBeFalse();
+      expect(btn[0].nativeElement.disabled).toBeTrue();
       done(); // add done() to tell jasmine that the test is done
     }, 3000);
   });
+
+  // Promise
+  // fakeAsync() is a function that allows us to write asynchronous tests in a synchronous way.
+  it('should test the promise', fakeAsync(() => {
+    let counter = 0;
+
+    setTimeout(() => (counter += 2), 2000); // Tasks are executed in the order they were scheduled
+
+    setTimeout(() => (counter += 3), 3000); // Tasks are executed in the order they were scheduled
+
+    Promise.resolve().then(() => (counter += 1)); // Microtasks are executed before the next tick
+    // flush(); // flush the microtasks queue
+
+    flushMicrotasks(); // flush the microtasks queue
+    expect(counter).toBe(1);
+
+    tick(2000); // tick() is a function that allows us to move forward in time by a given number of milliseconds.
+    expect(counter).toBe(3);
+
+    tick(3000);
+    expect(counter).toBe(6);
+  }));
+
+  // Observables
+  it('should test the observable', fakeAsync(() => {
+    let isTesting = false;
+    let myObs = of(isTesting).pipe(delay(1000));
+    myObs.subscribe((value) => {
+      isTesting = true;
+    });
+    tick(1000);
+    expect(isTesting).toBeTrue();
+  }));
 });
