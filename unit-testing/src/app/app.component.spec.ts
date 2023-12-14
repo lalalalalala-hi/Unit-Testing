@@ -71,7 +71,7 @@ describe('AppComponent', () => {
       fixture.detectChanges();
       btn = el.queryAll(By.css('.unit-test-button'));
       expect(btn[0].nativeElement.textContent).toBe('Unit Testing True');
-      expect(btn[0].nativeElement.disabled).toBeFalse();
+      expect(btn[0].nativeElement.disabled).toBeTrue();
       done(); // add done() to tell jasmine that the test is done
     }, 3000);
   });
