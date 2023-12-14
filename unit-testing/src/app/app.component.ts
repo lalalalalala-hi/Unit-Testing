@@ -9,6 +9,7 @@ export class AppComponent {
   title = 'unit-testing';
   btnText = 'Unit Testing False';
   isTesting = false;
+  marks = [5, 50, 66, 70, 90]; // use for Pipes
 
   onClick() {
     setTimeout(() => {

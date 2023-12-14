@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { GradePipe } from './grade.pipe';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>; // create for debug element
@@ -12,7 +13,7 @@ describe('AppComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [AppComponent],
+      declarations: [AppComponent, GradePipe], // declare GradePipe
     })
       .compileComponents()
       .then(() => {
@@ -71,7 +72,7 @@ describe('AppComponent', () => {
       fixture.detectChanges();
       btn = el.queryAll(By.css('.unit-test-button'));
       expect(btn[0].nativeElement.textContent).toBe('Unit Testing True');
-      expect(btn[0].nativeElement.disabled).toBeFalse();
+      expect(btn[0].nativeElement.disabled).toBeTrue();
       done(); // add done() to tell jasmine that the test is done
     }, 3000);
   });

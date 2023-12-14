@@ -3,4 +3,6 @@
 <button class="unit-test-button" *ngIf="!isTesting" (click)="onClick()">Unit Testing False</button>
 <button class="unit-test-button" *ngIf="isTesting" disabled>Unit Testing True</button>
 
+<div *ngFor="let mark of marks">{{ mark | grade}}</div>
+
 <router-outlet></router-outlet>
