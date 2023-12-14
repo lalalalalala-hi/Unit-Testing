@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { GradePipe } from './grade.pipe';
+import { GradeDirective } from './grade.directive';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>; // create for debug element
@@ -13,7 +14,7 @@ describe('AppComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [AppComponent, GradePipe], // declare GradePipe
+      declarations: [AppComponent, GradePipe, GradeDirective], // declare GradeDirective
     })
       .compileComponents()
       .then(() => {
