@@ -7,9 +7,17 @@ import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { GradePipe } from './grade.pipe';
 import { GradeDirective } from './grade.directive';
+import { InfoComponent } from './info/info.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, FooterComponent, GradePipe, GradeDirective],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    FooterComponent,
+    GradePipe,
+    GradeDirective,
+    InfoComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
