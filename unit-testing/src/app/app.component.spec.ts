@@ -1,13 +1,25 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { Component, DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>; // create for debug element
+  let el: DebugElement;
+  let component: AppComponent;
+
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent],
     })
+      .compileComponents()
+      .then(() => {
+        fixture = TestBed.createComponent(AppComponent);
+        el = fixture.debugElement;
+        component = fixture.componentInstance;
+      })
   );
 
   it('should create the app', () => {
@@ -22,12 +34,45 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('unit-testing');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+  it('should render a button with text(false)', () => {
+    //v1
+    // const btn = el.nativeElement.querySelector('button');
+    // component.isTesting = false;
+    // component.btnText = 'Unit Testing False';
+    // fixture.detectChanges();
+
+    //v2
+    component.isTesting = false;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'unit-testing app is running!'
-    );
+    const btn = el.nativeElement.querySelector('button');
+
+    expect(btn.textContent).toContain('Unit Testing False');
+    expect(btn.disabled).toBeFalse();
+  });
+
+  it('should render a button with text(true)', (done: DoneFn) => {
+    // add DoneFn
+    // v1
+    // const btn = el.nativeElement.querySelector('button');
+    // component.isTesting = false;
+    // component.btnText = 'Unit Testing False';
+
+    // btn.click(); // trigger click event
+    // fixture.detectChanges();
+    // expect(btn.textContent).toContain('Unit Testing True');
+    // expect(btn.disabled).toBeTrue();
+
+    // v2
+    component.isTesting = false;
+    fixture.detectChanges();
+    let btn = el.queryAll(By.css('.unit-test-button'));
+    btn[0].nativeElement.click();
+    setTimeout(() => {
+      fixture.detectChanges();
+      btn = el.queryAll(By.css('.unit-test-button'));
+      expect(btn[0].nativeElement.textContent).toBe('Unit Testing True');
+      expect(btn[0].nativeElement.disabled).toBeFalse();
+      done(); // add done() to tell jasmine that the test is done
+    }, 3000);
   });
 });
