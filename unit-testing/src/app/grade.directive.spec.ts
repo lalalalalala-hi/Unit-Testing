@@ -4,6 +4,7 @@ import { GradeDirective } from './grade.directive';
 import { DebugElement } from '@angular/core';
 import { GradePipe } from './grade.pipe';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('GradeDirective', () => {
   let component: AppComponent;
@@ -12,6 +13,7 @@ describe('GradeDirective', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [AppComponent, GradePipe, GradeDirective],
     });
 
