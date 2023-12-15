@@ -8,7 +8,6 @@ export class CalcService {
   constructor(private sharedService: SharedService) {}
 
   multiply(a: number, b: number): number {
-    this.sharedService.mySharedFunction();
     return a * b;
   }
 

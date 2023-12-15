@@ -7,8 +7,4 @@ export class SharedService {
   constructor() {
     console.log('A HTTP Call');
   }
-
-  mySharedFunction() {
-    console.log('My Shared Function is called');
-  }
 }

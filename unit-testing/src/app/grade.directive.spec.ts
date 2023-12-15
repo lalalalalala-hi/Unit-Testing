@@ -50,5 +50,22 @@ describe('GradeDirective', () => {
     div2.triggerEventHandler('mouseenter', null);
     fixture.detectChanges();
     expect(div2.nativeElement.style.color).toBe('blue');
+
+    div3.triggerEventHandler('mouseenter', null);
+    fixture.detectChanges();
+    expect(div3.nativeElement.style.color).toBe('orange');
+
+    div4.triggerEventHandler('mouseenter', null);
+    fixture.detectChanges();
+    expect(div4.nativeElement.style.color).toBe('green');
+  });
+
+  it('should change the text color on mouse leave', () => {
+    let divs = el.queryAll(By.css('div'));
+    let div0 = divs[0];
+
+    div0.triggerEventHandler('mouseleave', null);
+    fixture.detectChanges();
+    expect(div0.nativeElement.style.color).toBe('black');
   });
 });

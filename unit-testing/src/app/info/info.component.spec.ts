@@ -8,7 +8,7 @@ describe('InfoComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [InfoComponent]
+      declarations: [InfoComponent],
     });
     fixture = TestBed.createComponent(InfoComponent);
     component = fixture.componentInstance;
@@ -17,5 +17,11 @@ describe('InfoComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should navigate to home', () => {
+    spyOn((component as any).router, 'navigate');
+    component.goBack();
+    expect((component as any).router.navigate).toHaveBeenCalledWith(['/home']);
   });
 });
